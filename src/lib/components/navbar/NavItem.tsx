@@ -1,6 +1,9 @@
 import Link from 'next/link';
-
-export const NavItem = ({ href, label }: { href: string; label: string }) => {
+interface NavItemProps {
+    href: string;
+    label: string;
+}
+export const NavItem = ({ href, label }: NavItemProps) => {
     return (
         <li>
             <Link href={href}>{label}</Link>

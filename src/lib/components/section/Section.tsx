@@ -7,7 +7,7 @@ export const Section = ({ className, children }: SectionProps) => {
     return (
         <section
             className={classNames(
-                'flex flex-col justify-center items-center',
+                'flex flex-col justify-center items-center font-outfit',
                 className,
             )}
         >

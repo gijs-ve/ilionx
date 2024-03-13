@@ -15,10 +15,11 @@ export default async function CharactersPage() {
     const characterItems: ListProps['items'] = charactersData
         .flatMap((data) => data.results)
         .map((character) => {
-            const id = character.url.split('/').slice(-2, -1)[0];
+            const { name, url } = character;
+            const id = url.split('/').slice(-2, -1)[0];
             return {
                 id,
-                name: character.name,
+                name,
                 itemClassName: 'flex',
                 children: (
                     <Link
