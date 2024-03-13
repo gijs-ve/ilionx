@@ -26,6 +26,10 @@ export const List = ({
     enableSearch,
 }: ListProps) => {
     const [searchInput, setSearchInput] = useState('');
+    const filteredItems = items.filter((value) => {
+        if (!enableSearch || searchInput === '') return true;
+        return value.name?.toLowerCase().includes(searchInput.toLowerCase());
+    });
     return (
         <>
             {heading && (
@@ -40,33 +44,26 @@ export const List = ({
                 />
             )}
             <ul className={className}>
-                {items
-                    .filter((value) => {
-                        if (!enableSearch || searchInput === '') return true;
-                        return value.name
-                            ?.toLowerCase()
-                            .includes(searchInput.toLowerCase());
-                    })
-                    .map(
-                        ({
-                            children,
-                            id,
-                            itemClassName,
-                            label,
-                            labelClassName,
-                        }) => {
-                            return (
-                                <ListItem key={id} className={itemClassName}>
-                                    {label && (
-                                        <span className={labelClassName}>
-                                            {label}
-                                        </span>
-                                    )}
-                                    {children}
-                                </ListItem>
-                            );
-                        },
-                    )}
+                {filteredItems.map(
+                    ({
+                        children,
+                        id,
+                        itemClassName,
+                        label,
+                        labelClassName,
+                    }) => {
+                        return (
+                            <ListItem key={id} className={itemClassName}>
+                                {label && (
+                                    <span className={labelClassName}>
+                                        {label}
+                                    </span>
+                                )}
+                                {children}
+                            </ListItem>
+                        );
+                    },
+                )}
             </ul>
         </>
     );
