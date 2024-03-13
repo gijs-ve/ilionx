@@ -1,4 +1,5 @@
 import { List, ListProps } from './List';
+import { ListValue } from './ListValue';
 
 export interface ListDetailsProps {
     items: {
@@ -12,26 +13,12 @@ export const ListDetails = ({ items, heading }: ListDetailsProps) => {
         heading,
         items: items.map((item, index) => {
             const { value } = item;
-            const valueIsArray = Array.isArray(value);
             return {
                 ...item,
                 id: index,
                 labelClassName: 'mr-auto',
                 itemClassName: 'flex w-full px-10 sm:px-20 md:px-0',
-                ...(!valueIsArray && {
-                    children: <span className="ml-auto">{value}</span>,
-                }),
-                ...(valueIsArray && {
-                    children: (
-                        <span className="flex flex-col ml-auto">
-                            {value.map((val) => (
-                                <span className="text-right" key={val}>
-                                    {val}
-                                </span>
-                            ))}
-                        </span>
-                    ),
-                }),
+                children: <ListValue value={value} />,
             };
         }),
     };
